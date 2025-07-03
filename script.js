@@ -272,33 +272,17 @@ function randomColor() {
 
 let fireworksInterval;
 
-function initialFireworkBurst() {
-  const count = 10;
-  const spacing = fireworksCanvas.width / (count + 1);
-  const y = fireworksCanvas.height;
-  const targetY = fireworksCanvas.height / 4;
 
-  for (let i = 1; i <= count; i++) {
-    const x = spacing * i;
-    setTimeout(() => {
-      fireworks.push(new Firework(x, y, targetY, randomColor()));
-    }, i * 100);
-  }
-}
 
 function startFireworks() {
-  // Первый залп в ряд
-  initialFireworkBurst();
-
-  // Через секунду — обычный случайный запуск
-  setTimeout(() => {
+ 
     fireworksInterval = setInterval(() => {
       const x = Math.random() * fireworksCanvas.width;
       const y = fireworksCanvas.height;
-      const targetY = (Math.random() * fireworksCanvas.height) / 2 + 50;
+      const targetY = (Math.random() * fireworksCanvas.height) / 4 + 50;
       fireworks.push(new Firework(x, y, targetY, randomColor()));
     }, 400);
-  }, 1000);
+  
 
   requestAnimationFrame(animateFireworks);
 }
