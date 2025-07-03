@@ -273,7 +273,7 @@ function randomColor() {
 let fireworksInterval;
 
 function initialFireworkBurst() {
-  const count = 40;
+  const count = 16;
   const spacing = fireworksCanvas.width / (count + 1);
   const y = fireworksCanvas.height;
   const targetY = fireworksCanvas.height / 4;
