@@ -280,7 +280,9 @@ function initialFireworkBurst() {
 
   for (let i = 1; i <= count; i++) {
     const x = spacing * i;
-    fireworks.push(new Firework(x, y, targetY, randomColor()));
+    setTimeout(() => {
+      fireworks.push(new Firework(x, y, targetY, randomColor()));
+    }, i * 50);
   }
 }
 
