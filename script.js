@@ -216,7 +216,7 @@ class Firework {
     }
   }
   explode() {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       particles.push(new Particle(this.x, this.y, this.color));
     }
   }
@@ -273,7 +273,7 @@ function randomColor() {
 let fireworksInterval;
 
 function initialFireworkBurst() {
-  const count = 16;
+  const count = 10;
   const spacing = fireworksCanvas.width / (count + 1);
   const y = fireworksCanvas.height;
   const targetY = fireworksCanvas.height / 4;
@@ -282,7 +282,7 @@ function initialFireworkBurst() {
     const x = spacing * i;
     setTimeout(() => {
       fireworks.push(new Firework(x, y, targetY, randomColor()));
-    }, i * 50);
+    }, i * 100);
   }
 }
 
@@ -295,7 +295,7 @@ function startFireworks() {
     fireworksInterval = setInterval(() => {
       const x = Math.random() * fireworksCanvas.width;
       const y = fireworksCanvas.height;
-      const targetY = (Math.random() * fireworksCanvas.height) / 4 + 50;
+      const targetY = (Math.random() * fireworksCanvas.height) / 2 + 50;
       fireworks.push(new Firework(x, y, targetY, randomColor()));
     }, 400);
   }, 1000);
