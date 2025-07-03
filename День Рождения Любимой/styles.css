@@ -1,0 +1,219 @@
+@font-face {
+  font-family: "DancingScript";
+  src: url(/fonts/DancingScript-Regular.woff2) format(woff2);
+  font-weight: normal;
+  font-display: swap;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  font-family: "DancingScript";
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+#container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* SVG сердце */
+#heart-svg {
+  display: block;
+  width: 160px;
+  height: 160px;
+  pointer-events: all;
+  user-select: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  z-index: 1000;
+  will-change: transform, opacity;
+  filter: drop-shadow(20px 20px 15px rgba(0, 0, 0, 0.7));
+}
+
+#heart-svg.show {
+  opacity: 1;
+  transform: scale(1);
+}
+#heart-svg.shrink-fade {
+  opacity: 0;
+  transform: scale(2);
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+#heart-svg path {
+  fill: #ff5577;
+  transition: fill 0.3s ease;
+  pointer-events: visiblePainted;
+}
+
+#heart-svg path:hover {
+  fill: #ff1a4d;
+}
+
+/* Надпись */
+#message {
+  margin-top: 20px;
+  font-size: 40px;
+  color: #800020;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  user-select: none;
+  text-align: center;
+  text-shadow: 20px 15px 15px rgba(0, 0, 0, 1), 0 0 8px rgba(128, 0, 32, 1);
+}
+#message.show {
+  opacity: 1;
+}
+#message.fadeOut {
+  opacity: 0 !important;
+}
+
+/* Падающие сердца контейнер */
+#falling-hearts {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  z-index: 5;
+}
+.fall-heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+  animation-name: fallHeart;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes fallHeart {
+  0% {
+    transform: translateY(-30px) rotate(0deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Открытка */
+#card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 420px;
+  background: #fff8f8;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(255, 90, 110, 0.5);
+  transform: translateX(-150vw) translateY(-50%) rotate(10deg); /* изначально далеко слева */
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 25px;
+  font-size: 34px;
+  color: #b0304b;
+  box-shadow: 20px -20px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 2s ease, opacity 1s ease;
+}
+
+#card.show {
+  transform: translateX(-50%) translateY(-50%) rotate(10deg); /* центр экрана */
+  opacity: 1;
+}
+
+#card.hide {
+  transform: translateX(-150vw) translateY(-50%) rotate(10deg); /* уезжает далеко влево */
+  opacity: 0;
+}
+
+#card-text {
+  white-space: pre-wrap;
+  min-height: 200px;
+}
+
+/* Звездное небо (canvas видимый) */
+#starry-sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 15;
+  transition: opacity 1s ease;
+}
+#starry-sky.show {
+  opacity: 1;
+}
+
+/* Финальный текст с неоновым эффектом, чуть выше */
+#final-text {
+  pointer-events: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ff4da6;
+  font-size: 50px;
+  font-weight: 700;
+  opacity: 0;
+  z-index: 20;
+  text-align: center;
+  max-width: 90%;
+  padding: 0 10px;
+  transition: opacity 2s ease;
+  text-shadow: 0 0 5px #ff4da6, 0 0 10px #ff4da6, 0 0 20px #ff1a4d,
+    0 0 30px #ff1a4d, 0 0 40px #ff1a4d, 0 0 50px #ff1a4d, 0 0 60px #ff1a4d;
+}
+#final-text.show {
+  opacity: 1;
+}
+
+/* Фото под текстом */
+#final-photo {
+  position: fixed;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  max-height: 50vh;
+  opacity: 0;
+  z-index: 19;
+  border-radius: 20px;
+  object-fit: cover;
+  transition: opacity 2s ease;
+  box-shadow: 0 0 15px rgba(255, 77, 166, 0.6);
+}
+#final-photo.show {
+  opacity: 0.85;
+}
